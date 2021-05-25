@@ -16,7 +16,7 @@ class FirebaseQuestionsRepository implements QuestionsRepository {
   Future<void> addNewQuestion(Question question, String category) {
     print(question);
     return FirebaseFirestore.instance
-        .collection('categories')
+        .collection('categories2')
         .doc(category)
         .collection('questions')
         .add(question.toEntity().toDocument());
@@ -25,7 +25,7 @@ class FirebaseQuestionsRepository implements QuestionsRepository {
   @override
   Future<void> deleteQuestion(String id, String category) async {
     return FirebaseFirestore.instance
-        .collection('categories')
+        .collection('categories2')
         .doc(category)
         .collection('questions')
         .doc(id)
@@ -36,7 +36,7 @@ class FirebaseQuestionsRepository implements QuestionsRepository {
   Future<List<Question>> fetchQuestions(String category) {
     print('fetching $category');
     return FirebaseFirestore.instance
-        .collection('categories')
+        .collection('categories2')
         .doc(category)
         .collection('questions')
         // .orderBy('points', descending: true)
@@ -51,7 +51,7 @@ class FirebaseQuestionsRepository implements QuestionsRepository {
   @override
   Future<void> updateQuestion(Question update, String category) {
     return FirebaseFirestore.instance
-        .collection('categories')
+        .collection('categories2')
         .doc(category)
         .collection('questions')
         .doc(update.id)
@@ -61,7 +61,7 @@ class FirebaseQuestionsRepository implements QuestionsRepository {
   @override
   Future<bool> getCategories(String category) {
     return FirebaseFirestore.instance
-        .collection('categories')
+        .collection('categories2')
         .snapshots()
         .contains(category);
   }
