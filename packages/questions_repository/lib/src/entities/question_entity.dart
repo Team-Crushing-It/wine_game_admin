@@ -42,10 +42,10 @@ class QuestionEntity extends Equatable {
   static QuestionEntity fromSnapshot(DocumentSnapshot? snap) {
     return QuestionEntity(
       snap?.id,
-      snap?.data()?['points'],
-      snap?.data()?['question'],
-      snap?.data()?['type'],
-      snap?.data()?['answers'],
+      snap?.get('points'),
+      snap?.get('question'),
+      snap?.get('type'),
+      snap?.get('answers'),
     );
   }
 
