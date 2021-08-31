@@ -15,10 +15,7 @@ class QuestionState extends Equatable {
       question: 'Default Question',
       type: 'Multiple Choice',
       points: 500,
-      answers: [
-        {'answer': 'answer 1', 'correct': true},
-        {'answer': 'answer 2', 'correct': false},
-      ],
+      answers: [Answer(answer: 'answer1', correct: true)],
     ),
     this.status = QuestionStatus.loading,
     this.questions = const <Question>[],

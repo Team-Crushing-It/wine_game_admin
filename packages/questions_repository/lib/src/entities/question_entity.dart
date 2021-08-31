@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
+import 'entities.dart';
+
 class QuestionEntity extends Equatable {
   final String? id;
   final double? points;
   final String? question;
   final String? type;
-  final List<dynamic>? answers;
+  final List<AnswerEntity>? answers;
 
   const QuestionEntity(
       this.id, this.points, this.question, this.type, this.answers);
@@ -17,7 +19,7 @@ class QuestionEntity extends Equatable {
       'points': points,
       'type': type,
       'question': question,
-      'answers': answers,
+      'answers': answers!.map((answers) => answers.toJson()).toList,
     };
   }
 
@@ -35,17 +37,26 @@ class QuestionEntity extends Equatable {
       json['points'] as double,
       json['question'] as String,
       json['type'] as String,
-      json['answers'] as List<dynamic>,
+      json['answers'] as List<AnswerEntity>,
     );
   }
 
-  static QuestionEntity fromSnapshot(DocumentSnapshot? snap) {
+  static QuestionEntity fromSnapshot(DocumentSnapshot snap) {
+    print('converting question Entitiy');
+
+    List<dynamic> answerList = snap
+        .get('answers')
+        .map((answers) => AnswerEntity.fromJson(answers))
+        .toList();
+
+    List<AnswerEntity> answers = answerList.cast<AnswerEntity>();
+
     return QuestionEntity(
-      snap?.id,
-      snap?.get('points'),
-      snap?.get('question'),
-      snap?.get('type'),
-      snap?.get('answers'),
+      snap.id,
+      snap.get('points'),
+      snap.get('question'),
+      snap.get('type'),
+      answers,
     );
   }
 

@@ -51,9 +51,7 @@ class QuestionSummary extends StatelessWidget {
                         question: 'An Awesome Question',
                         type: 'True or False',
                         points: 500,
-                        answers: [
-                          {'answer': 'True', 'correct': true},
-                        ],
+                        answers: [Answer(answer: 'True', correct: true)],
                       );
                       context.read<QuestionCubit>().addNewQuestion(
                             question2,

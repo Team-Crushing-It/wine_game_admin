@@ -20,7 +20,7 @@ class TrueFalseAnswer extends StatefulWidget {
 }
 
 class _TrueFalseAnswerState extends State<TrueFalseAnswer> {
-  late List<dynamic>? answers;
+  late List<Answer>? answers;
   bool _result = false;
 
   @override
@@ -67,7 +67,7 @@ class _TrueFalseAnswerState extends State<TrueFalseAnswer> {
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
                           dropdownColor: Colors.white,
-                          value: widget.question.answers![0]['answer'],
+                          value: widget.question.answers![0].answer,
                           icon: const Icon(
                             FontAwesomeIcons.caretDown,
                             color: Colors.grey,
@@ -86,12 +86,12 @@ class _TrueFalseAnswerState extends State<TrueFalseAnswer> {
 
                             /// and here we prime our temporary question in the
                             /// case we decide to hit submit
-                            widget.onChange(
-                                widget.question.copyWith(answers: <dynamic>[
-                              {
-                                'answer': newValue.toString(),
-                                'correct': newValue
-                              },
+                            widget.onChange(widget.question.copyWith(answers: [
+                              Answer(
+                                  answer: newValue.toString(),
+                                  correct: newValue.toString() == 'true'
+                                      ? true
+                                      : false)
                             ]));
                           },
                           items: ['True', 'False']
@@ -118,18 +118,13 @@ class _TrueFalseAnswerState extends State<TrueFalseAnswer> {
       answers = widget.originalQuestion.answers!.map((e) => e).toList();
     } else {
       /// If not, then we set a default temp value
-      answers = <dynamic>[
-        {'answer': 'False', 'correct': false},
-      ];
+      answers = const [Answer(answer: 'False', correct: false)];
 
       /// and we prime our temporary question with this value
       /// in the case that we decide to hit the submit button
       widget.onChange(
-        widget.question.copyWith(
-          answers: <dynamic>[
-            {'answer': 'False', 'correct': false},
-          ],
-        ),
+        widget.question
+            .copyWith(answers: const [Answer(answer: 'False', correct: false)]),
       );
     }
     return 'complete';

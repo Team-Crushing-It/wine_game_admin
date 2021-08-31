@@ -2,13 +2,15 @@ import '../entities/entities.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
+import 'models.dart';
+
 @immutable
 class Question extends Equatable {
   final String? id;
   final double? points;
   final String? question;
   final String? type;
-  final List<dynamic>? answers;
+  final List<Answer>? answers;
 
   final bool isDeleting;
   final bool isSelected;
@@ -18,7 +20,7 @@ class Question extends Equatable {
     required double? points,
     required String? question,
     required String? type,
-    required List<dynamic>? answers,
+    required List<Answer>? answers,
     this.isDeleting = false,
     this.isSelected = false,
   })  : this.id = id,
@@ -32,7 +34,7 @@ class Question extends Equatable {
       double? points,
       String? question,
       String? type,
-      List<dynamic>? answers,
+      List<Answer>? answers,
       bool? isDeleting,
       bool? isSelected}) {
     return Question(
@@ -52,7 +54,10 @@ class Question extends Equatable {
   }
 
   QuestionEntity toEntity() {
-    return QuestionEntity(id, points, question, type, answers);
+    print(' question toEntity');
+    print(answers!.map((answer) => answer.toEntity()).toList());
+    return QuestionEntity(id, points, question, type,
+        answers!.map((answer) => answer.toEntity()).toList());
   }
 
   static Question fromEntity(QuestionEntity entity) {
@@ -61,7 +66,8 @@ class Question extends Equatable {
       points: entity.points,
       question: entity.question,
       type: entity.type,
-      answers: entity.answers,
+      answers:
+          entity.answers!.map((answer) => Answer.fromEntity(answer)).toList(),
     );
   }
 

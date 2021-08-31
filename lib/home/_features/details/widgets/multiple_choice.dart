@@ -20,7 +20,7 @@ class MultipleChoiceType extends StatefulWidget {
 }
 
 class _MultipleChoiceTypeState extends State<MultipleChoiceType> {
-  late List<dynamic>? answers;
+  late List<Answer>? answers;
   bool _result = false;
 
   @override
@@ -78,10 +78,10 @@ class _MultipleChoiceTypeState extends State<MultipleChoiceType> {
                                 onChanged: (value) => widget.onUpdated(value),
                                 onSaved: (value) {
                                   setState(() {
-                                    answers![index]['answer'] = value;
+                                    answers![index].copyWith(answer: value);
                                   });
                                 },
-                                initialValue: answers![index]['answer'],
+                                initialValue: answers![index].answer,
                                 validator: (val) {
                                   return val!.trim().isEmpty
                                       ? 'Please enter some text'
@@ -128,7 +128,7 @@ class _MultipleChoiceTypeState extends State<MultipleChoiceType> {
 
         /// for this particular type, we set sort the correct case to the top
         ..sort((a, b) {
-          if (b['correct'] == true) {
+          if (b.correct == true) {
             return 1;
           } else {
             return -1;
@@ -136,11 +136,11 @@ class _MultipleChoiceTypeState extends State<MultipleChoiceType> {
         });
     } else {
       /// If not, then we set a default temp value
-      answers = <dynamic>[
-        {'answer': 'answer1', 'correct': true},
-        {'answer': 'answer2', 'correct': false},
-        {'answer': 'answer3', 'correct': false},
-        {'answer': 'answer4', 'correct': false}
+      answers = const [
+        Answer(answer: 'answer1', correct: true),
+        Answer(answer: 'answer2', correct: false),
+        Answer(answer: 'answer3', correct: false),
+        Answer(answer: 'answer4', correct: false),
       ];
 
       /// and we prime our temporary question with this value

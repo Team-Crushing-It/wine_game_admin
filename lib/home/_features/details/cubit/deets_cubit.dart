@@ -60,7 +60,7 @@ class DeetsCubit extends Cubit<DeetsState> {
     emit(DeetsState.updated(output));
   }
 
-  Future<void> updateAnswer(List<dynamic>? answers) async {
+  Future<void> updateAnswer(List<Answer>? answers) async {
     final output = state.question.copyWith(answers: answers);
     emit(DeetsState.updated(output));
   }

@@ -20,7 +20,7 @@ class RangeType extends StatefulWidget {
 }
 
 class _RangeTypeState extends State<RangeType> {
-  late List<dynamic>? answers;
+  late List<Answer>? answers;
   bool _result = false;
 
   @override
@@ -75,10 +75,10 @@ class _RangeTypeState extends State<RangeType> {
                                 onChanged: (value) => widget.onUpdated(value),
                                 onSaved: (value) {
                                   setState(() {
-                                    answers![0]['answer'] = value;
+                                    answers![0].copyWith(answer: value);
                                   });
                                 },
-                                initialValue: answers![0]['answer'],
+                                initialValue: answers![0].answer,
                                 validator: (val) {
                                   return val!.trim().isEmpty
                                       ? 'Please enter a number'
@@ -124,10 +124,10 @@ class _RangeTypeState extends State<RangeType> {
                                 onChanged: (value) => widget.onUpdated(value),
                                 onSaved: (value) {
                                   setState(() {
-                                    answers![1]['answer'] = value;
+                                    answers![1].copyWith(answer: value);
                                   });
                                 },
-                                initialValue: answers![1]['answer'],
+                                initialValue: answers![1].answer,
                                 validator: (val) {
                                   return val!.trim().isEmpty
                                       ? 'Please enter a number'
@@ -173,10 +173,10 @@ class _RangeTypeState extends State<RangeType> {
                                 onChanged: (value) => widget.onUpdated(value),
                                 onSaved: (value) {
                                   setState(() {
-                                    answers![2]['answer'] = value;
+                                    answers![2].copyWith(answer: value);
                                   });
                                 },
-                                initialValue: answers![2]['answer'],
+                                initialValue: answers![2].answer,
                                 validator: (val) {
                                   return val!.trim().isEmpty
                                       ? 'Please enter a number'
@@ -211,10 +211,10 @@ class _RangeTypeState extends State<RangeType> {
       answers = widget.originalQuestion.answers!.map((e) => e).toList();
     } else {
       /// If not, then we set a default temp value
-      answers = <dynamic>[
-        {'answer': '0', 'correct': true},
-        {'answer': '10', 'correct': true},
-        {'answer': '5', 'correct': true},
+      answers = const [
+        Answer(answer: '0', correct: true),
+        Answer(answer: '10', correct: true),
+        Answer(answer: '5', correct: true)
       ];
 
       /// and we prime our temporary question with this value

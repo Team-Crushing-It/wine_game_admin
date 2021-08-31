@@ -19,7 +19,7 @@ class FirebaseQuestionsRepository implements QuestionsRepository {
         .collection('categories2')
         .doc(category)
         .collection('questions')
-        .add(question.toEntity().toDocument());
+        .add(question.toEntity().toJson());
   }
 
   @override

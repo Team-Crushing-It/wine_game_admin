@@ -7,7 +7,7 @@ class Answer extends Equatable {
   final String? answer;
   final bool? correct;
 
-  Answer({required String? answer, required bool? correct})
+  const Answer({required String? answer, required bool? correct})
       : this.answer = answer,
         this.correct = correct;
 
@@ -24,6 +24,7 @@ class Answer extends Equatable {
   }
 
   AnswerEntity toEntity() {
+    print('answer toEntity');
     return AnswerEntity(answer, correct);
   }
 

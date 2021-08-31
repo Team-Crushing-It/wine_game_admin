@@ -23,7 +23,7 @@ class KeywordType extends StatefulWidget {
 }
 
 class _KeywordTypeState extends State<KeywordType> {
-  late List<dynamic>? answers;
+  late List<Answer>? answers;
   bool _result = false;
 
   @override
@@ -81,10 +81,10 @@ class _KeywordTypeState extends State<KeywordType> {
                                   onChanged: (value) => widget.onUpdated(value),
                                   onSaved: (value) {
                                     setState(() {
-                                      answers![index]['answer'] = value;
+                                      answers![index].copyWith(answer: value);
                                     });
                                   },
-                                  initialValue: answers![index]['answer'],
+                                  initialValue: answers![index].answer,
                                   decoration: const InputDecoration(
                                     border: OutlineInputBorder(
                                       borderSide:
@@ -117,11 +117,11 @@ class _KeywordTypeState extends State<KeywordType> {
       answers = widget.originalQuestion.answers!.map((e) => e).toList();
     } else {
       /// If not, then we set a default temp value
-      answers = <dynamic>[
-        {'answer': 'answer1', 'correct': true},
-        {'answer': 'answer2', 'correct': true},
-        {'answer': 'answer3', 'correct': true},
-        {'answer': 'answer4', 'correct': true}
+      answers = const [
+        Answer(answer: 'answer1', correct: true),
+        Answer(answer: 'answer2', correct: true),
+        Answer(answer: 'answer3', correct: true),
+        Answer(answer: 'answer4', correct: true),
       ];
 
       /// and we prime our temporary question with this value

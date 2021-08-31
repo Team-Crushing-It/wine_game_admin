@@ -22,7 +22,7 @@ class AnswerEntity extends Equatable {
     return 'AnswerEntity { answer: $answer, correct $correct';
   }
 
-  static AnswerEntity fromJson(Map<String, Object> json) {
+  static AnswerEntity fromJson(Map<String, Object?> json) {
     return AnswerEntity(
       json['answer'] as String,
       json['correct'] as bool,
