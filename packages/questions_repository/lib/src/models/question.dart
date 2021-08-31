@@ -54,8 +54,6 @@ class Question extends Equatable {
   }
 
   QuestionEntity toEntity() {
-    print(' question toEntity');
-    print(answers!.map((answer) => answer.toEntity()).toList());
     return QuestionEntity(id, points, question, type,
         answers!.map((answer) => answer.toEntity()).toList());
   }
@@ -67,7 +65,7 @@ class Question extends Equatable {
       question: entity.question,
       type: entity.type,
       answers:
-          entity.answers!.map((answer) => Answer.fromEntity(answer)).toList(),
+          entity.answers.map((answer) => Answer.fromEntity(answer)).toList(),
     );
   }
 

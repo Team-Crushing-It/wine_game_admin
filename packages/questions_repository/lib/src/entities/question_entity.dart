@@ -8,18 +8,18 @@ class QuestionEntity extends Equatable {
   final double? points;
   final String? question;
   final String? type;
-  final List<AnswerEntity>? answers;
+  final List<AnswerEntity> answers;
 
-  const QuestionEntity(
-      this.id, this.points, this.question, this.type, this.answers);
+  const QuestionEntity(this.id, this.points, this.question, this.type,
+      List<AnswerEntity>? answers)
+      : answers = answers ?? const [];
 
   Map<String, Object?> toJson() {
     return {
-      'id': id,
       'points': points,
       'type': type,
       'question': question,
-      'answers': answers!.map((answers) => answers.toJson()).toList,
+      'answers': answers.map((answers) => answers.toJson()).toList(),
     };
   }
 

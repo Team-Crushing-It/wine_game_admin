@@ -13,13 +13,14 @@ class FirebaseQuestionsRepository implements QuestionsRepository {
       FirebaseFirestore.instance.collection('questions');
 
   @override
-  Future<void> addNewQuestion(Question question, String category) {
+  Future<void> addNewQuestion(Question question, String category) async {
     print(question);
-    return FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection('categories2')
         .doc(category)
         .collection('questions')
         .add(question.toEntity().toJson());
+    // .add(question.toEntity().toJson());
   }
 
   @override
@@ -55,7 +56,7 @@ class FirebaseQuestionsRepository implements QuestionsRepository {
         .doc(category)
         .collection('questions')
         .doc(update.id)
-        .update(update.toEntity().toDocument());
+        .update(update.toEntity().toJson());
   }
 
   @override
